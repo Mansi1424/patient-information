@@ -1,13 +1,101 @@
 <html>
-<head></head>
+<head>
+    <title>Patient Demographics</title>
+    <style>
+      table {
+      border-collapse: collapse;
+      width: 100%;
+        }
+
+      th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+
+      th {
+      background-color: #f2f2f2; /* Optional: add a background color for the table headers */
+    }
+
+    /* Optional: add some styling to the table container */
+    .table-container {
+      margin: 20px;
+      border: 1px solid black;
+      padding: 10px;
+      max-width: 500px;
+    }
+
+            label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Style for form input fields */
+        input[type="text"],
+        input[type="number"] {
+            width: 50%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        /* Style for the "Add Item" button */
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+
+
+
+
+    </style>
+</head>
 <body>
 <h1>Patient Demographics</h1>
-<table id="patient-demographics">
-    <th>
-    <td>Name</td>
-    <td>Email-</td>
-    </th>
+<table class="table table-bordered" id="patient-demographics">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Family Name</th>
+        <th>Date Of Birth</th>
+        <th>Gender</th>
+        <th>Home Address</th>
+        <th>Phone Number</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
 </table>
+
+<div class="form-container">
+    <h2>Add New Patient</h2>
+    <form id="addPatientForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="familyName">Family Name:</label>
+        <input type="text" id="familyName" name="familyName" required>
+        <label for="dob">DOB:</label>
+        <input type="text" id="dob" name="dob" required>
+        <label for="gender">Gender:</label>
+        <input type="text" id="gender" name="gender" required>
+        <label for="address">Home Address:</label>
+        <input type="text" id="address" name="address" required>
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone" required>
+        <button type="submit" id="updateButton">Update Table</button>
+    </form>
+</div>
+ <!-- New button for manual update -->
 <script src="./js/script.js" defer></script>
 </body>
 </html>

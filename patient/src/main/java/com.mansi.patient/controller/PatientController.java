@@ -56,12 +56,12 @@ public class PatientController {
 
     }
 
-//    @PutMapping("/update/{id}")
-//    @ResponseBody
-//    public ResponseEntity<Patient> updatePatient(@PathVariable("id") Integer patientId, @RequestBody Patient updatedPatient) {
-//
-//        return new ResponseEntity<Patient>()
-//    }
+    @PutMapping("/update/{id}")
+    @ResponseBody
+    public ResponseEntity<Patient> updatePatient(@PathVariable("id") Integer patientId, @RequestBody Patient updatedPatient) {
+
+        return new ResponseEntity<Patient>(patientService.updatePatient(updatedPatient, patientId), HttpStatus.OK);
+    }
 
 
 
