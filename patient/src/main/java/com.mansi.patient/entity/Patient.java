@@ -12,6 +12,16 @@ public class Patient {
         super();
     }
 
+    public Patient(Integer id, String name, String familyName, String dateOfBirth, String sex, String homeAddress, String phoneNumber) {
+        this.id = id;
+        this.name = name;
+        this.familyName = familyName;
+        this.dateOfBirth = dateOfBirth;
+        this.sex = sex;
+        this.homeAddress = homeAddress;
+        this.phoneNumber = phoneNumber;
+    }
+
     public Patient(String name, String familyName, String dateOfBirth, String sex, String homeAddress, String phoneNumber) {
         this.name = name;
         this.familyName = familyName;

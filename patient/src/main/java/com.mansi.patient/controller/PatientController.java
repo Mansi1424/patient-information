@@ -63,6 +63,16 @@ public class PatientController {
         return new ResponseEntity<Patient>(patientService.updatePatient(updatedPatient, patientId), HttpStatus.OK);
     }
 
+    @PutMapping("/update")
+    @ResponseBody
+    public ResponseEntity<List<Patient>> updateMultiplePatients(@RequestBody List<Patient> updatedPatients) {
+        // Implement the logic to update the users in your service
+        // For example, you might iterate through the updatedUsers list and update the database.
+
+        // Return a response indicating success or failure
+        return new ResponseEntity<List<Patient>>(patientService.updateMultiplePatients(updatedPatients), HttpStatus.OK);
+    }
+
 
 
 

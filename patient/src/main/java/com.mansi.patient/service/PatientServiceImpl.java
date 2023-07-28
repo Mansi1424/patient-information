@@ -6,7 +6,7 @@ import com.mansi.patient.repo.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.module.ResolutionException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,7 +35,7 @@ public class PatientServiceImpl implements PatientService {
     public Patient getPatientById(Integer id) {
         Optional<Patient> patient = patientRepository.findById(id);
 
-        if(patient.isPresent()) {
+        if (patient.isPresent()) {
             return patient.get();
         } else {
             throw new ResourceNotFoundException("Patient", "Id", id);
@@ -61,5 +61,31 @@ public class PatientServiceImpl implements PatientService {
         patientRepository.save(existingPatient);
 
         return existingPatient;
+    }
+
+    @Override
+    public List<Patient> updateMultiplePatients(List<Patient> patients) {
+
+        List<Patient> updatedPatientsList = new ArrayList<>();
+
+        for (Patient updatedPatient : patients) {
+
+            Integer id = updatedPatient.getId();
+            // check whether patient is in DB or not
+            Patient existingPatient = patientRepository.findById(id).orElseThrow(
+                    () -> new ResourceNotFoundException("Patient", "Id", id));
+
+            existingPatient.setName(updatedPatient.getName());
+            existingPatient.setFamilyName(updatedPatient.getFamilyName());
+            existingPatient.setDateOfBirth(updatedPatient.getDateOfBirth());
+            existingPatient.setSex(updatedPatient.getSex());
+            existingPatient.setHomeAddress(updatedPatient.getHomeAddress());
+            existingPatient.setPhoneNumber(updatedPatient.getPhoneNumber());
+
+            //save existing patient to DB
+            patientRepository.save(updatedPatient);
+
+        }
+        return updatedPatientsList;
     }
 }

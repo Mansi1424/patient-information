@@ -10,4 +10,6 @@ public interface PatientService {
     List<Patient> getAllPatients();
     Patient getPatientById(Integer Id);
     Patient updatePatient(Patient patient, Integer id);
+    List<Patient> updateMultiplePatients(List<Patient> patients);
+
 }
