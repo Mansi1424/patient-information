@@ -110,7 +110,6 @@ function addNewPatient(event) {
         },
         body: JSON.stringify(formData),
     })
-    .then(response => response.json())
     .then(data => {
         // Handle the API response, if needed
         console.log('API response:', data);
