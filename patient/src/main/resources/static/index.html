@@ -55,11 +55,8 @@
             background-color: #45a049;
         }
 
-
-
-
-
     </style>
+
 </head>
 <body>
 <h1>Patient Demographics</h1>
@@ -74,10 +71,10 @@
         <th>Phone Number</th>
     </tr>
     </thead>
-    <tbody></tbody>
+    <tbody id="table-body"></tbody>
 </table>
+<button id="updatePatientButton">Update Patient Table</button>
 
-<button onclick="saveChanges()">Update Patient Table</button>
 <div class="form-container">
     <h2>Add New Patient</h2>
     <form id="addPatientForm">
@@ -93,10 +90,10 @@
         <input type="text" id="address" name="address" required>
         <label for="phone">Phone:</label>
         <input type="text" id="phone" name="phone" required>
-        <button type="submit" id="updateButton">Add New Patient</button>
+        <button type="submit" id="addNewPatient">Add New Patient</button>
     </form>
 </div>
- <!-- New button for manual update -->
+<!-- New button for manual update -->
 <script src="./js/script.js" defer></script>
 </body>
 </html>

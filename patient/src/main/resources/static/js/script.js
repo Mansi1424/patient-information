@@ -8,6 +8,7 @@ function fetchItems() {
             // Loop through the data and create table rows
             data.forEach(item => {
                 const row = document.createElement('tr');
+                row.setAttribute('data-row-id', item.id);
 
                 //Name column
                 const nameCell = document.createElement("td");
@@ -41,7 +42,7 @@ function fetchItems() {
 
                 //Phone Num column
                 const phoneNumberCell = document.createElement("td");
-                phoneNumberCell.innerText = item.phoneNumberCell;
+                phoneNumberCell.innerText = item.phoneNumber;
                 phoneNumberCell.contentEditable = true;
                 row.appendChild(phoneNumberCell);
 
@@ -53,10 +54,16 @@ function fetchItems() {
 
 
 
-// Function to update the table when the button is clicked
+// Function to add new patient to the table when the button is clicked
 function updateTable() {
     fetchItems();
 }
+
+// Add a click event listener to the "Update Table" button
+document.getElementById('addNewPatient').addEventListener('click', updateTable);
+
+// Add a submit event listener to the form
+document.getElementById('addPatientForm').addEventListener('submit', addNewPatient);
 
 // Function to handle form submission and add new row to the table
 function addNewPatient(event) {
@@ -112,60 +119,71 @@ function addNewPatient(event) {
     .catch(error => console.error('Error submitting data:', error));
 }
 
+
+function getRowId(row) {
+    return row.getAttribute('data-row-id');
+ }
+
+async function saveChanges() {
+    const tableBody = document.querySelector("#table-body");
+    const rows = tableBody.querySelectorAll('tr');
+    const updatedData = [];
+    console.log(tableBody);
+    console.log("rows " + rows);
+
+
+     rows.forEach(row => {
+       const cells = row.querySelectorAll('td');
+       const dataObject = {
+         id: getRowId(row),
+         name: cells[0].textContent,
+         familyName: cells[1].textContent,
+         dateOfBirth: cells[2].textContent,
+         sex: cells[3].textContent,
+         homeAddress: cells[4].textContent,
+         phoneNumber: cells[5].textContent
+       };
+       updatedData.push(dataObject);
+     });
+
+    console.log(updatedData)
+    sendPutRequest(updatedData);
+}
+
+function sendPutRequest(data) {
+  // Replace this URL with your server endpoint for updating data
+  const apiUrl = 'https://api.example.com/update';
+
+  fetch('patient/update', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+  .then(response => {
+    if (response.ok) {
+      console.log('Data updated successfully.');
+    } else {
+      console.error('Failed to update data.');
+    }
+  })
+  .then(response => response.json())
+      .then(data => {
+          // Handle the API response, if needed
+          console.log('API response:', data);
+          location.assign("./");
+      })
+  .catch(error => {
+    console.error('Error occurred while updating data:', error);
+  });
+}
+
+// Add click event to call to saveChanges() to update patient table
+document.getElementById('updatePatientButton').addEventListener('click', () => {
+    saveChanges();
+});
+
 // Call the fetchItems function when the page loads
 window.onload = fetchItems;
 
-// Add a click event listener to the "Update Table" button
-document.getElementById('updateButton').addEventListener('click', updateTable);
-
-// Add a submit event listener to the form
-document.getElementById('addPatientForm').addEventListener('submit', addNewPatient);
-
-
-function saveChanges() {
-    const table = document.getElementById("patient-demographics");
-    const rows = table.getElementsByTagName("tr");
-
-    const updatedPatients = [];
-
-    for (let i = 1; i < rows.length; i++) {
-        const row = rows[i];
-        const cells = row.getElementsByTagName("td");
-
-        const name = cells[0].innerText.trim();
-        const familyName = cells[1].innerText.trim();
-        const dob = cells[2].innerText.trim();
-        const gender = cells[3].innerText.trim();
-        const homeAddress = cells[4].innerText.trim();
-        const phoneNumber = cells[5].innerText.trim();
-
-        // Push the updated data into an array
-        updatedPatients.push({ name, familyName, dob, gender, homeAddress, phoneNumber });
-    }
-
-    updateBackendData(updatedPatients);
-
-}
-
-function updateBackendData(updatedPatients) {
-    // Make a PUT request to the server using AJAX or fetch API
-    fetch('/patient/update', {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedPatients),
-    })
-    .then(response => response.json())
-    .then(data => {
-        // Handle the response from the server, if needed
-        console.log('Data updated successfully:', data);
-
-        // If you want to update the table with any changes returned from the server
-        // For example, you could update the table with the server-generated IDs.
-        // ...
-    })
-    .catch(error => {
-        console.error('Error updating data:', error);
-    });
-}
