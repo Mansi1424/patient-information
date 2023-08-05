@@ -59,11 +59,7 @@ function updateTable() {
     fetchItems();
 }
 
-// Add a click event listener to the "Update Table" button
-document.getElementById('addNewPatient').addEventListener('click', updateTable);
 
-// Add a submit event listener to the form
-document.getElementById('addPatientForm').addEventListener('submit', addNewPatient);
 
 // Function to handle form submission and add new row to the table
 function addNewPatient(event) {
@@ -89,6 +85,9 @@ function addNewPatient(event) {
         <td contenteditable="true">${phone}</td>
     `;
     tableBody.appendChild(newRow);
+
+    console.log(tableBody);
+    console.log(newRow);
 
     // Clear the form fields
     form.reset();
@@ -182,6 +181,12 @@ function sendPutRequest(data) {
 document.getElementById('updatePatientButton').addEventListener('click', () => {
     saveChanges();
 });
+
+// Add a click event listener to the "Update Table" button
+document.getElementById('addNewPatient').addEventListener('click', updateTable);
+
+// Add a submit event listener to the form
+document.getElementById('addPatientForm').addEventListener('submit', addNewPatient);
 
 // Call the fetchItems function when the page loads
 window.onload = fetchItems;

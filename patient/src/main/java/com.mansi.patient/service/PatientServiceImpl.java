@@ -1,7 +1,9 @@
 package com.mansi.patient.service;
 
+import com.mansi.patient.entity.History;
 import com.mansi.patient.entity.Patient;
 import com.mansi.patient.exception.ResourceNotFoundException;
+import com.mansi.patient.repo.HistoryRepository;
 import com.mansi.patient.repo.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,9 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     private PatientRepository patientRepository;
 
+    @Autowired
+    private HistoryRepository historyRepository;
+
     public PatientServiceImpl(PatientRepository patientRepository) {
         super();
         this.patientRepository = patientRepository;
@@ -23,7 +28,14 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Patient savePatient(Patient patient) {
+
+//        History history = new History();
+//        history.setPatientId(patient.getId());
+//        historyRepository.save(history);
+
         return patientRepository.save(patient);
+
+
     }
 
     @Override
