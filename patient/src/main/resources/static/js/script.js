@@ -149,8 +149,6 @@ async function saveChanges() {
 }
 
 function sendPutRequest(data) {
-  // Replace this URL with your server endpoint for updating data
-  const apiUrl = 'https://api.example.com/update';
 
   fetch('patient/update', {
     method: 'PUT',
