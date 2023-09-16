@@ -10,6 +10,11 @@ function fetchItems() {
                 const row = document.createElement('tr');
                 row.setAttribute('data-row-id', item.id);
 
+                //patID column
+                const patIdCell = document.createElement("td");
+                patIdCell.innerText = item.id.toString();
+                row.appendChild(patIdCell);
+
                 //Name column
                 const nameCell = document.createElement("td");
                 nameCell.innerText = item.name;
@@ -134,12 +139,12 @@ async function saveChanges() {
        const cells = row.querySelectorAll('td');
        const dataObject = {
          id: getRowId(row),
-         name: cells[0].textContent,
-         familyName: cells[1].textContent,
-         dateOfBirth: cells[2].textContent,
-         sex: cells[3].textContent,
-         homeAddress: cells[4].textContent,
-         phoneNumber: cells[5].textContent
+         name: cells[1].textContent,
+         familyName: cells[2].textContent,
+         dateOfBirth: cells[3].textContent,
+         sex: cells[4].textContent,
+         homeAddress: cells[5].textContent,
+         phoneNumber: cells[6].textContent
        };
        updatedData.push(dataObject);
      });
@@ -163,13 +168,12 @@ function sendPutRequest(data) {
     } else {
       console.error('Failed to update data.');
     }
+    })
+  .then(data => {
+      // Handle the API response, if needed
+      console.log('API response:', data);
+      location.assign("./");
   })
-  .then(response => response.json())
-      .then(data => {
-          // Handle the API response, if needed
-          console.log('API response:', data);
-          location.assign("./");
-      })
   .catch(error => {
     console.error('Error occurred while updating data:', error);
   });
