@@ -38,6 +38,7 @@ public class PatientController {
 
 
     /**
+     * GET all patients
      *
      * @return ListAllPatients
      */
@@ -47,7 +48,13 @@ public class PatientController {
         return patientService.getAllPatients();
     }
 
-    //http:localhost:8080/patient/employees/1
+
+    /**
+     * GET patient by ID
+     *
+     * @param patientId Id of patient
+     * @return One Patient
+     */
     @GetMapping("/get/{id}")
     @ResponseBody
     public ResponseEntity<Patient> getPatientById(@PathVariable("id") Integer patientId) {
@@ -55,6 +62,19 @@ public class PatientController {
 
     }
 
+    @GetMapping("/getByFamily/{familyName}")
+    @ResponseBody
+    public ResponseEntity<Patient> getPatientByFamily(@PathVariable("familyName") String familyName) {
+        return new ResponseEntity<Patient>(patientService.getPatientByFamilyName(familyName), HttpStatus.OK);
+
+    }
+
+    /**
+     * UPDATE patient by Id
+     * @param patientId Id of patient
+     * @param updatedPatient Object of updated patient
+     * @return Patient updated
+     */
     @PutMapping("/update/{id}")
     @ResponseBody
     public ResponseEntity<Patient> updatePatient(@PathVariable("id") Integer patientId, @RequestBody Patient updatedPatient) {

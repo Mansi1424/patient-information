@@ -48,6 +48,17 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+    public Patient getPatientByFamilyName(String familyName) {
+        Optional<Patient> patient = patientRepository.findByFamilyName(familyName);
+
+        if (patient.isPresent()) {
+            return patient.get();
+        } else {
+            throw new ResourceNotFoundException("Patient", "Family Name", familyName);
+        }
+    }
+
+    @Override
     public Patient updatePatient(Patient patient, Integer id) {
 
         // check whether patient is in DB or not
