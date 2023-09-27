@@ -48,7 +48,7 @@ public class PatientControllerTest {
 
     @Test
     public void testAddNewPatient() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/patient/add")
+        mockMvc.perform(MockMvcRequestBuilders.post("/patient/addNew")
                 .content(asJsonString(new Patient("NewPatientTest", "Patel", "02-20-2001", "female", "World", "900-900-9000")))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))

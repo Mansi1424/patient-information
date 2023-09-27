@@ -107,7 +107,7 @@ function addNewPatient(event) {
     };
 
     // Send the form data to the POST API using fetch
-    fetch('/patient/add', {
+    fetch('/patient/addNew', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

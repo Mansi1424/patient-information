@@ -25,16 +25,40 @@ public class PatientController {
     }
 
     /**
-     * Post new patient
-     *
-     * @param newPatient addedPatient
-     * @return patientJsonBody
+     * POST NEW Patient with request Params
+     * @param family familyName
+     * @param given name
+     * @param dob dateofbirth
+     * @param sex gender
+     * @param address home address
+     * @param phone phone Number
+     * @return added patient successful
      */
     @PostMapping(path = "/add") // Map ONLY POST Requests
     @ResponseBody
-    public ResponseEntity<Patient> addNewPatient(@RequestBody Patient newPatient) {
+    public ResponseEntity<Patient> addNewPatient(@RequestParam String family, @RequestParam String given, @RequestParam String dob, @RequestParam String sex, @RequestParam String address, @RequestParam String phone) {
+        Patient newPatient = new Patient();
+        newPatient.setFamilyName(family);
+        newPatient.setName(given);
+        newPatient.setDateOfBirth(dob);
+        newPatient.setSex(sex);
+        newPatient.setHomeAddress(address);
+        newPatient.setPhoneNumber(phone);
+
         return new ResponseEntity<Patient>(patientService.savePatient(newPatient), HttpStatus.CREATED);
     }
+
+    /**
+     * POST:  New Patient With Patient Object as input
+     * @param newPatient
+     * @return
+     */
+    @PostMapping(path = "/addNew") // Map ONLY POST Requests
+    @ResponseBody
+    public ResponseEntity<Patient> addNewPatientRequestParams(@RequestBody Patient newPatient) {
+        return new ResponseEntity<Patient>(patientService.savePatient(newPatient), HttpStatus.CREATED);
+    }
+
 
 
     /**
